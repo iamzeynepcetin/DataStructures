@@ -61,7 +61,6 @@ void yazdir()
     else
     {
         geciciDegisken = baslangic;
-        printf("\n********************\n");
         while(geciciDegisken->sonraki != NULL)
         {
             printf("%d ", geciciDegisken->veri);
@@ -83,3 +82,4 @@ yazdir();
 tersCevir();
 yazdir();
 }
+
