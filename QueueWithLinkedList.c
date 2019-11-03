@@ -39,10 +39,9 @@ void bastir(){
         printf("Bos kuyruk\n");
         return;
     }else{
-       node*iter = root;
-       while(iter != NULL){
-        printf("%d ", iter->data);
-        iter = iter->next;
+        while(root!= NULL){
+        printf("%d ", root->data);
+        root = root->next;
        }
        printf("\n");
        return;
