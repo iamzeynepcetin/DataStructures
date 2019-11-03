@@ -8,24 +8,57 @@ struct n{
 
 typedef struct n node; //node isimli bir n struct yapisi
 
+node* ekle(node* root, int x){ //bu fonksiyon yeni gelen elemanlari listin sonua ekler.
+    if(root == NULL){ //listte eleman yoksa calisir.
+        node* temp = (node*)malloc(sizeof(node));
+        temp->x = x;
+        temp->next = NULL; //onemli
+        root = temp;
+        return root;
+    }else{
+        node* iter = root;
+        while(iter->next != NULL){ //Burada iteratorun nexti kontrol etmesi onemli cunku iteri NULL bir degere atamak istemeyiz.
+            iter = iter->next;
+        }//son dugume gelindi
+        node* temp = (node*)malloc(sizeof(node));
+        temp->x = x;
+        temp->next = NULL;
+        iter->next = temp;
+        return root;
+    }
+}
 
-void bastir( node * r){ //bagli listeyi yazdiran fonksiyon
- while (r != NULL){
-  printf("%d ", r->x);
-  r = r -> next;
+node * sil(node *root, int x){
+ node *temp;
+ node *iter = root;
+ if( root->x == x){ //ilk eleman aradigim degerse
+  temp = root;
+  root = root->next;
+  free (temp);
+  return root;
+ }
+
+ while ( iter->next != NULL && iter->next->x != x){ //null elemanina kadar x i bulmak icin gez
+  iter = iter->next;
+ }
+ if ( iter->next == NULL){ //sayi bulunamadiysa
+  printf( "Sayi bulunamadi!\n" );
+  return root;
+ }
+ temp = iter->next; //silmek istedigimiz dugumu bulduysak
+ iter->next = iter->next->next; // ya da iter->next = temp->next
+ free (temp);                   //silmek istedigin dugumden sonrakine gec
+ return root;
+}
+
+void bastir( node * root){ //bagli listeyi yazdiran fonksiyon
+ while (root != NULL){
+  printf("%d ", root->x);
+  root = root -> next;
  }
  printf("\n");
 }
 
-void ekle( node * r, int x){ //bagli listeye eleman ekleyen fonksiyon
- while( r -> next != NULL){ //r->nexte dikkat et .. r nin gosterdiginin sonraki null olmali
-  r =r -> next;
- }
- r -> next = ( node *) malloc (sizeof (node ) );
- r -> next -> x = x;
- r -> next -> next = NULL;
-
-}
 
 node * ekleSirali ( node * r, int x){
  if( r == NULL){ //linklist bossa
@@ -55,28 +88,7 @@ node * ekleSirali ( node * r, int x){
 
 }
 
-node * sil(node *r, int x){
- node *temp;
- node *iter = r;
- if( r->x == x){ //ilk eleman aradigim degerse
-  temp = r;
-  r = r->next;
-  free (temp);
-  return r;
- }
 
- while ( iter->next != NULL && iter->next->x != x){ //null elemanina kadar x i bulmak icin gez
-  iter = iter->next;
- }
- if ( iter->next == NULL){ //sayi bulunamadiysa
-  printf( "Sayi bulunamadi!\n" );
-  return r;
- }
- temp = iter->next; //silmek istedigimiz dugumu bulduysak
- iter->next = iter->next->next; // ya da iter->next = temp->next
- free (temp);                   //silmek istedigin dugumden sonrakine gec
- return r;
-}
 
 int main ()
 {
@@ -84,11 +96,11 @@ int main ()
  node * root;
  root = NULL;
 
- root = ekleSirali( root, 400);
- root = ekleSirali( root, 40);
- root = ekleSirali( root, 4);
- root = ekleSirali( root, 450);
- root = ekleSirali( root, 50);
+ root = ekle( root, 400);
+ root = ekle( root, 40);
+ root = ekle( root, 4);
+ root = ekle( root, 450);
+ root = ekle( root, 50);
  bastir(root);
  root = sil( root, 50);
  bastir(root);
@@ -99,3 +111,4 @@ int main ()
  root = sil( root, 450);
  bastir(root);
 }
+
