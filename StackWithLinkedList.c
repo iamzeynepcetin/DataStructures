@@ -1,65 +1,57 @@
 #include <stdio.h>
 #include <stdlib.h>
- struct n{
- int data;
- struct n* next;
- };
- typedef struct n node;
 
+struct Node{
+    int x;
+    struct Node* next;
+};
+typedef struct Node node;
+
+node* push(node* root, int x){
+    if(root == NULL){ //Bos olmasi durumunu kontrol ediyoruz.
+        node* temp = (node*)malloc(sizeof(node));
+        temp->x = x;
+        temp->next = NULL;
+        return temp;
+    }
+    else{ //sona eklemektense basa eklemek (algoritma analizine gore) daha avantajlidir.
+        node* temp = (node*)malloc(sizeof(node));
+        temp->x = x;
+        temp->next = root;
+        return temp;
+    }
+}
+
+node* pop(node* root){
+    if(root == NULL){
+        printf("bos yigin.\n");
+    }
+    node* temp; //free() fonksiyonunu calistirmak icin silinen dugumun adresi gecici bir sure icin saklanmalý.
+    printf("%d silindi.\n", root->x);
+    temp = root;
+    root = root->next;
+    free(temp);
+    return root;
+
+}
 void bastir(node*root){
 while(root!=NULL){
-        printf("%d ->",root->data);
+        printf("%d ->",root->x);
         root=root->next;
         }
 }
-
-int pop(node *root){
-if(root==NULL){
-    printf("stack boss");
-    return -1;
-}
-if(root->next==NULL){
-    int rvalue=root->data;
-    free (root);
-    return rvalue;
-}
-node*iter=root;
-while(iter->next->next!=NULL)
-iter=iter->next;
-
-node *temp= iter->next;
-int rvalue=temp->data;
-iter->next=NULL;
-free(temp);
-
-return rvalue;
-}
-
-node* push(node *root,int a){
-if (root==NULL){
-    root=(node *)malloc(sizeof(node));
-    root->data=a;
-    root->next=NULL;
-    return root;
-}
-node *iter=root;
-while(iter->next!=NULL){
-    iter=iter->next;
-}
-node *temp=(node*)malloc(sizeof(node));
-temp->data=a;
-temp->next=NULL;
-iter->next=temp;
-return root;
-}
-
-int main()
-{
-    node*s=NULL;
-    s=push(s,10);
-    s=push(s,20);
-    printf("%d->",pop(s));
-    printf("%d->",pop(s));
-
+int main(){
+    node* root = NULL;
+    bastir(root);
+    root = push(root, 10);
+    root = push(root, 20);
+    root = push(root, 30);
+    root = push(root, 40);
+    root = push(root, 50);
+    bastir(root);
+    root = pop(root);
+    bastir(root);
+    root = pop(root);
+    bastir(root);
 
 }
