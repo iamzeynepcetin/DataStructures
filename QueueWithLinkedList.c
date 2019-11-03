@@ -34,7 +34,21 @@ son->next=NULL;
      free(temp);
      return rvalue;
  }
+void bastir(){
+    if(root == NULL){
+        printf("Bos kuyruk\n");
+        return;
+    }else{
+       node*iter = root;
+       while(iter != NULL){
+        printf("%d ", iter->data);
+        iter = iter->next;
+       }
+       printf("\n");
+       return;
+    }
 
+}
 
 
 int main()
@@ -42,7 +56,8 @@ int main()
 enqueu(10);
 enqueu(20);
 enqueu(30);
-printf("%d",dequeue());
-printf("%d",dequeue());
+dequeue();
+dequeue();
+bastir();
 
 }
