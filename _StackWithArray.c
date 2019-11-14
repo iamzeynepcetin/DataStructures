@@ -10,7 +10,7 @@ int eleman[enfazla];
 
 int koy(int veri){
 if(stack.elemansayisi>=enfazla){
-    printf("aq stagi dolu\n");
+    printf("Stack dolu\n");
 }
 else{
 stack.eleman[stack.elemansayisi]=veri;
