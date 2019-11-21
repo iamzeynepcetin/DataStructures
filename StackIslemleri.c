@@ -1,4 +1,4 @@
-/*Bir yığıta, eleman ekleme, eleman sileme ve listeleme işlemlerini 
+/*Bir yığıta, eleman ekleme, eleman silme ve listeleme işlemlerini 
 switch-case yapısını kullanarak bir menü üzerinden yapan bir  C programı yazınız. */
 #include <stdio.h>
 #include <stdlib.h>
